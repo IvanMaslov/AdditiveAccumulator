@@ -2,29 +2,28 @@
 #define ADDITIVE_ACCUMULATOR_1
 
 #include "sha256.h"
+#include "utils.h"
 #include <vector>
 
-struct statement {
+struct statement_1 {
 	std::string x;
 	std::string prev;
 	std::string parent;
 
-	statement();
+	statement_1();
 
-	statement(const std::string &x, const std::string &prev, const std::string &parent);
+	statement_1(const std::string &x, const std::string &prev, const std::string &parent);
 };
 
-using witness = std::vector<statement>;
+class additive_accumulator_1 {
+public:
+	using witness = std::vector<statement_1>;
 
-class additive_accumulator {
+private:
 	size_t size;
 	std::vector<std::string> x;
 	std::vector<std::string> r;
 	std::vector<std::string> s;
-
-	size_t pred(const size_t &k);
-
-	size_t zeros(size_t k);
 
 	witness wit_create(const size_t &j, const size_t &i);
 
@@ -32,7 +31,7 @@ class additive_accumulator {
 
 public:
 
-	additive_accumulator();
+	additive_accumulator_1();
 
 	void add(const std::string &z);
 

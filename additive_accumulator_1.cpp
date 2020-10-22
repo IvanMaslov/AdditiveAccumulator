@@ -1,28 +1,13 @@
 #include "additive_accumulator_1.h"
 
-#include "sha256.h"
+statement_1::statement_1() = default;
 
-statement::statement() = default;
-
-statement::statement(const std::string &x, const std::string &prev, const std::string &parent)
+statement_1::statement_1(const std::string &x, const std::string &prev, const std::string &parent)
 	: x(x), prev(prev), parent(parent)
 {}
 
-size_t additive_accumulator::pred(const size_t &k) {
-	return k & (k - 1);
-}
-
-size_t additive_accumulator::zeros(size_t k) {
-	size_t res = 0;
-	while (k > 0) {
-		res++;
-		k &= (k - 1);
-	}
-	return res;
-}
-
-witness additive_accumulator::wit_create(const size_t &j, const size_t &i) {
-	statement p(x[i], r[i - 1], r[pred(i)]);
+additive_accumulator_1::witness additive_accumulator_1::wit_create(const size_t &j, const size_t &i) {
+	statement_1 p(x[i], r[i - 1], r[pred(i)]);
 	if (i == j)
 		return{ p };
 	witness res = (pred(i) < j) ? wit_create(j, i - 1) : wit_create(j, pred(i));
@@ -30,8 +15,8 @@ witness additive_accumulator::wit_create(const size_t &j, const size_t &i) {
 	return res;
 }
 
-bool additive_accumulator::wit_verify(const std::string &z, const size_t &j, const size_t &i, witness &w) {
-	statement p = w.back();
+bool additive_accumulator_1::wit_verify(const std::string &z, const size_t &j, const size_t &i, witness &w) {
+	statement_1 p = w.back();
 	w.pop_back();
 	if (sha256(p.x + p.prev + p.parent) != r[i])
 		return false;
@@ -43,14 +28,14 @@ bool additive_accumulator::wit_verify(const std::string &z, const size_t &j, con
 		return wit_verify(z, j, pred(i), w);
 }
 
-additive_accumulator::additive_accumulator() {
+additive_accumulator_1::additive_accumulator_1() {
 	size = 0;
 	x = { "" };
 	r = { "" };
 	s = { "" };
 }
 
-void additive_accumulator::add(const std::string &z) {
+void additive_accumulator_1::add(const std::string &z) {
 	if (z.empty())
 		throw std::invalid_argument("Adding empty string");
 	size++;
@@ -61,14 +46,14 @@ void additive_accumulator::add(const std::string &z) {
 	s[zeros(size)] = sha256(z + s[zeros(size - 1)] + s[zeros(pred(size))]);
 }
 
-witness additive_accumulator::create_witness(const size_t &num, const size_t &i) {
+additive_accumulator_1::witness additive_accumulator_1::create_witness(const size_t &num, const size_t &i) {
 	return wit_create(num, i);
 }
 
-witness additive_accumulator::create_witness(const size_t &num) {
+additive_accumulator_1::witness additive_accumulator_1::create_witness(const size_t &num) {
 	return wit_create(num, size);
 }
 
-bool additive_accumulator::verify_witness(const std::string &z, const size_t &num, const size_t &i, witness w) {
+bool additive_accumulator_1::verify_witness(const std::string &z, const size_t &num, const size_t &i, witness w) {
 	return wit_verify(z, num, i, w);
 }
