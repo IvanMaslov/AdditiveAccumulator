@@ -1,5 +1,7 @@
 #include "additive_accumulator_1.h"
 
+#include <stdexcept>
+
 statement_1::statement_1() = default;
 
 statement_1::statement_1(const std::string &x, const std::string &prev, const std::string &parent)

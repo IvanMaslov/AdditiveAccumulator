@@ -4,8 +4,8 @@
 
 #include "gtest/gtest.h"
 
-#include "../additive_accumulator_1.h"
+#include "../additive_accumulator_2.h"
 
-TEST(sample, sample) {
+TEST(sample, sample2) {
     EXPECT_EQ(42, 21 * 2);
 }

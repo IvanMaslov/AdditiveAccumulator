@@ -1,6 +1,8 @@
 #ifndef UTILS
 #define UTILS
 
+#include <vector>
+
 size_t pred(const size_t &k);
 
 size_t zeros(size_t k);
