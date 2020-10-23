@@ -6,9 +6,9 @@ size_t pred(const size_t &k) {
 
 size_t zeros(size_t k) {
 	size_t res = 0;
-	while (k > 0) {
+	while (k & 1 == 0) {
 		res++;
-		k &= (k - 1);
+		k >>= 1;
 	}
 	return res;
 }
