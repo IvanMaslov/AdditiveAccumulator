@@ -3,23 +3,27 @@
 statement_2::statement_2() = default;
 
 statement_2::statement_2(const std::string &x, const std::string &rh)
-	: x(x), rh(rh)
-{}
+		: x(x), rh(rh) {}
 
 additive_accumulator_2::additive_accumulator_2() {
 	size = 0;
-	x = { "" };
-	r = { "" };
+	x = {""};
+	r = {""};
 	s = merkle_tree();
 }
 
 bool additive_accumulator_2::wit_verify(const std::string &z, const size_t &j, const size_t &i, witness &w) {
+    if (w.empty()) {
+        return false;
+    }
 	statement_2 p = w.back();
 	w.pop_back();
-	if (sha256(p.x + p.rh) != r[i])
+	if (sha256(p.x + p.rh) != r[i]) {
 		return false;
-	if (i == j)
-		return z == p.x;
+	}
+	if (i == j) {
+		return w.empty() && z == p.x;
+	}
 
 	size_t i_ = rpred(i - 1, j);
 	size_t leaf_index = zeros(i_);
@@ -29,7 +33,7 @@ bool additive_accumulator_2::wit_verify(const std::string &z, const size_t &j, c
 		items.push_back(r[bit_lift(i - 1, u)]);
 	}
 
-	merkle_tree tree = merkle_tree(items);
+	merkle_tree tree(items);
 	return tree.verify_witness(p.w, leaf_index, items[leaf_index]) && wit_verify(z, j, i_, w);
 }
 
@@ -46,7 +50,7 @@ additive_accumulator_2::witness additive_accumulator_2::create_witness(const siz
 	for (size_t u = 0; (1 << u) <= i; u++) {
 		items.push_back(r[bit_lift(i - 1, u)]);
 	}
-	merkle_tree tree = merkle_tree(items);
+	merkle_tree tree(items);
 	statement_2 p(x[i], tree.get_root());
 	if (i > j) {
 		size_t i_ = rpred(i - 1, j);
@@ -55,9 +59,8 @@ additive_accumulator_2::witness additive_accumulator_2::create_witness(const siz
 		witness res = create_witness(j, i_);
 		res.push_back(p);
 		return res;
-	}
-	else {
-		return{ p };
+	} else {
+        return {p};
 	}
 }
 
