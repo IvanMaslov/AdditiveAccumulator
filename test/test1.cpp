@@ -5,10 +5,10 @@
 #include "gtest/gtest.h"
 
 #include "../additive_accumulator_1.h"
+#include "test_util.h"
 
 #include <string>
 #include <chrono>
-#include <random>
 
 TEST(unit1, API_accumulator) {
     additive_accumulator_1 a;
@@ -27,10 +27,6 @@ TEST(unit1, API_statement) {
     EXPECT_EQ(s.parent, "c");
 }
 
-namespace TestUtil {
-	std::random_device rnd_dev;
-	std::mt19937 rnd(rnd_dev());
-}
 
 TEST(functional1, emplty_verify) {
 	additive_accumulator_1 a;

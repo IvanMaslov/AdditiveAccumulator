@@ -7,6 +7,7 @@ add_executable(gtest_run
         test1.cpp
         test2.cpp
         test_merkle.cpp
+        test_util.cpp
         ../additive_accumulator_1.cpp
         ../additive_accumulator_2.cpp
         ../sha256.cpp
