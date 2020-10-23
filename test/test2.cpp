@@ -41,7 +41,7 @@ TEST(functional2, load) {
 	additive_accumulator_2 a;
 	for (size_t iter = 0; iter < 10000; ++iter) {
 		a.add(std::to_string(iter));
-		a.create_witness(iter, iter);
+		a.create_witness(iter + 1, iter + 1);
 	}
 	high_resolution_clock::time_point end = high_resolution_clock::now();
 	EXPECT_TRUE(duration_cast<milliseconds>( end - begin ).count() < 1800);
@@ -58,7 +58,7 @@ TEST(functional2, sequential_verify) {
 		p.push_back(a.create_witness(iter + 1, iter + 1));
 	}
 	for (size_t iter = 0; iter < 1000; ++iter) {
-		EXPECT_TRUE(a.verify_witness(r[iter], iter + 1, iter + 1, p[iter])) << " in " << iter << "th iteration" << std::endl;
+		ASSERT_TRUE(a.verify_witness(r[iter], iter + 1, iter + 1, p[iter])) << " in " << iter << "th iteration" << std::endl;
 	}
 }
 
@@ -74,7 +74,7 @@ TEST(functional2, unsequential_verify) {
 		p.push_back(a.create_witness(l.back(), iter + 1));
 	}
 	for (size_t iter = 0; iter < 1000; ++iter) {
-		EXPECT_TRUE(a.verify_witness(r[l[iter] - 1], l[iter], iter + 1, p[iter])) << " in " << iter << "th iteration" << std::endl;
+		ASSERT_TRUE(a.verify_witness(r[l[iter] - 1], l[iter], iter + 1, p[iter])) << " in " << iter << "th iteration" << std::endl;
 	}
 }
 
@@ -90,6 +90,6 @@ TEST(functional2, corrupted__verify) {
 		p.push_back(TestUtil::break_witness_2(a.create_witness(l.back(), iter + 1)));
 	}
 	for (size_t iter = 0; iter < 1000; ++iter) {
-		ASSERT_FALSE(a.verify_witness(r[l[iter] - 1], l[iter], iter + 1, p[iter]));
+		ASSERT_FALSE(a.verify_witness(r[l[iter] - 1], l[iter], iter + 1, p[iter])) << " in " << iter << "th iteration" << std::endl;
 	}
 }

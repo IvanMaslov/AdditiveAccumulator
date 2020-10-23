@@ -41,7 +41,7 @@ TEST(functional1, load) {
 	additive_accumulator_1 a;
 	for (size_t iter = 0; iter < 10000; ++iter) {
 		a.add(std::to_string(iter));
-		a.create_witness(iter);
+		a.create_witness(iter + 1);
 	}
 	high_resolution_clock::time_point end = high_resolution_clock::now();
 	EXPECT_TRUE(duration_cast<milliseconds>( end - begin ).count() < 500);

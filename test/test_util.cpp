@@ -7,6 +7,10 @@ namespace TestUtil {
 
 	statement_1 break_statement_1(statement_1 w) {
 		bool had = false;
+		std::string x_orig, prev_orig, parent_orig;
+		x_orig = w.x;
+		prev_orig = w.prev;
+		parent_orig = w.parent;
 		if (rnd() % 100 < 4) {
 			w.x.push_back(0);
 			had |= true;
@@ -53,12 +57,16 @@ namespace TestUtil {
 			w.parent.pop_back();
 			had |= true;
 		}
-		
+
+		had = parent_orig != w.parent || prev_orig != w.prev || x_orig != w.x;
 		if (!had) return break_statement_1(w);
 		return w;
 	}
 	
 	statement_2 break_statement_2(statement_2 w) {
+		std::string x_orig, rh_orig;
+		x_orig = w.x;
+		rh_orig = w.rh;
 		bool had = false;
 		if (rnd() % 100 < 4) {
 			w.x.push_back(0);
@@ -82,6 +90,7 @@ namespace TestUtil {
 			had |= true;
 		}
 
+		had = rh_orig != w.rh || x_orig != w.x;
 		if (!had) return break_statement_2(w);
 		return w;
 	}
