@@ -8,9 +8,9 @@ size_t zeros(size_t k) {
 	if (k == 0)
 		return 0;
 	size_t res = 0;
-	while (k & 1 == 0) {
+	while (k % 2 == 0) {
 		res++;
-		k >>= 1;
+		k /= 2;
 	}
 	return res;
 }
