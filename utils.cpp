@@ -17,10 +17,13 @@ size_t zeros(size_t k) {
 
 size_t rpred(const size_t &i, const size_t &j) {
 	size_t res = i;
-	while (res >= j) {
+	while (true) {
+		size_t prev = res;
 		res = pred(res);
+		if (res < j)
+			return prev;
 	}
-	return res;
+	return 0;
 }
 
 size_t bit_lift(const size_t &i, const size_t &u) {
