@@ -5,6 +5,8 @@ size_t pred(const size_t &k) {
 }
 
 size_t zeros(size_t k) {
+	if (k == 0)
+		return 0;
 	size_t res = 0;
 	while (k & 1 == 0) {
 		res++;
@@ -22,6 +24,8 @@ size_t rpred(const size_t &i, const size_t &j) {
 }
 
 size_t bit_lift(const size_t &i, const size_t &u) {
+	if (i == 0)
+		return 0;
 	if (i % (1 << u) != 0)
 		return (i >> u) << u;
 	if (i % (1 << (u + 1)) != 0)

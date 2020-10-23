@@ -29,7 +29,7 @@ bool additive_accumulator_2::wit_verify(const std::string &z, const size_t &j, c
 	size_t leaf_index = zeros(i_);
 
 	std::vector<std::string> items;
-	for (size_t u = 0; (1 << u) <= i; u++) {
+	for (size_t u = 0; (1 << u) < i; u++) {
 		items.push_back(r[bit_lift(i - 1, u)]);
 	}
 
@@ -47,7 +47,7 @@ void additive_accumulator_2::add(const std::string &z) {
 
 additive_accumulator_2::witness additive_accumulator_2::create_witness(const size_t &j, const size_t &i) {
 	std::vector<std::string> items;
-	for (size_t u = 0; (1 << u) <= i; u++) {
+	for (size_t u = 0; (1 << u) < i; u++) {
 		items.push_back(r[bit_lift(i - 1, u)]);
 	}
 	merkle_tree tree(items);

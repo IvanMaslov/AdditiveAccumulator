@@ -26,6 +26,10 @@ size_t merkle_tree::get_size() {
 
 merkle_tree::merkle_tree(const std::vector<std::string> &items) {
     size = items.size();
+    if (size == 0) {
+    	merkle_tree();
+    	return;
+    }
     capacity = 1;
     while (capacity < size) {
         capacity *= 2;
