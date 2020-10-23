@@ -28,11 +28,11 @@ namespace TestUtil {
 			w.prev.push_back(0);
 			had |= true;
 		}
-		if (rnd() % 100 < 4) {
+		if (rnd() % 100 < 4 && !w.prev.empty()) {
 			w.prev[0] = 0;
 			had |= true;
 		}
-		if (rnd() % 100 < 4) {
+		if (rnd() % 100 < 4 && !w.prev.empty()) {
 			w.prev.pop_back();
 			had |= true;
 		}
@@ -45,11 +45,11 @@ namespace TestUtil {
 			w.parent.push_back(0);
 			had |= true;
 		}
-		if (rnd() % 100 < 4) {
+		if (rnd() % 100 < 4 && !w.parent.empty()) {
 			w.parent[0] = 0;
 			had |= true;
 		}
-		if (rnd() % 100 < 4) {
+		if (rnd() % 100 < 4 && !w.parent.empty()) {
 			w.parent.pop_back();
 			had |= true;
 		}
@@ -72,11 +72,12 @@ namespace TestUtil {
 			w.x.pop_back();
 			had |= true;
 		}
+
 		if (rnd() % 100 < 4) {
 			w.rh = w.x;
 			had |= true;
 		}
-		if (rnd() % 100 < 4) {
+		if (rnd() % 100 < 4 && !w.rh.empty()) {
 			w.rh[0] = 0;
 			had |= true;
 		}

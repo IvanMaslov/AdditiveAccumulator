@@ -58,7 +58,7 @@ TEST(functional2, sequential_verify) {
 		p.push_back(a.create_witness(iter + 1, iter + 1));
 	}
 	for (size_t iter = 0; iter < 1000; ++iter) {
-		ASSERT_TRUE(a.verify_witness(r[iter], iter + 1, iter + 1, p[iter]));
+		EXPECT_TRUE(a.verify_witness(r[iter], iter + 1, iter + 1, p[iter])) << " in " << iter << "th iteration" << std::endl;
 	}
 }
 
@@ -74,7 +74,7 @@ TEST(functional2, unsequential_verify) {
 		p.push_back(a.create_witness(l.back(), iter + 1));
 	}
 	for (size_t iter = 0; iter < 1000; ++iter) {
-		ASSERT_TRUE(a.verify_witness(r[l[iter] - 1], l[iter], iter + 1, p[iter]));
+		EXPECT_TRUE(a.verify_witness(r[l[iter] - 1], l[iter], iter + 1, p[iter])) << " in " << iter << "th iteration" << std::endl;
 	}
 }
 
