@@ -76,3 +76,19 @@ TEST(functional1, unsequential_verify) {
 		ASSERT_TRUE(a.verify_witness(r[l[iter] - 1], l[iter], iter + 1, p[iter]));
 	}
 }
+
+TEST(functional1, corrupted__verify) {
+	additive_accumulator_1 a;
+	std::vector<std::string> r;
+	std::vector<size_t> l;
+	std::vector<additive_accumulator_1::witness> p;
+	for (size_t iter = 0; iter < 1000; ++iter) {
+		r.push_back(std::to_string(TestUtil::rnd()));
+		l.push_back(1 + TestUtil::rnd() % (1 + iter));
+		a.add(r.back());
+		p.push_back(TestUtil::break_witness_1(a.create_witness(l.back(), iter + 1)));
+	}
+	for (size_t iter = 0; iter < 1000; ++iter) {
+		ASSERT_FALSE(a.verify_witness(r[l[iter] - 1], l[iter], iter + 1, p[iter]));
+	}
+}
