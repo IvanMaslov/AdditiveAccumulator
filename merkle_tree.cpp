@@ -15,6 +15,8 @@ merkle_tree::merkle_tree() {
 }
 
 std::string merkle_tree::get_root() {
+	if (size == 0)
+		return NIL;
     return root->hash;
 }
 

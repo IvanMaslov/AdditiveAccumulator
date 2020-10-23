@@ -13,7 +13,7 @@ additive_accumulator_2::additive_accumulator_2() {
 }
 
 bool additive_accumulator_2::wit_verify(const std::string &z, const size_t &j, const size_t &i, witness &w) {
-    if (w.empty()) {
+	if (w.empty()) {
         return false;
     }
 	statement_2 p = w.back();
