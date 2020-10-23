@@ -30,7 +30,7 @@ size_t bit_lift(const size_t &i, const size_t &u) {
 	if (i == 0)
 		return 0;
 	if (i % (1 << u) != 0)
-		return (i >> u) << u;
+		return bit_lift((i >> u) << u, u);
 	if (i % (1 << (u + 1)) != 0)
 		return i;
 	return ((i >> u) - 1) << u;
