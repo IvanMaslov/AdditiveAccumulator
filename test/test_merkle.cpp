@@ -24,7 +24,7 @@ TEST(merkle, API) {
 	EXPECT_TRUE(b.verify_witness(b.create_witness(0), 0, "a"));
 }
 
-TEST(markle, load) {
+TEST(merkle, load) {
 	using namespace std::chrono;
 	high_resolution_clock::time_point begin = high_resolution_clock::now();
 	merkle_tree t;
@@ -34,7 +34,7 @@ TEST(markle, load) {
 		t.create_witness(iter);
 	}
 	high_resolution_clock::time_point end = high_resolution_clock::now();
-	EXPECT_TRUE(duration_cast<milliseconds>( end - begin ).count() < 1400);
+	EXPECT_TRUE(duration_cast<milliseconds>( end - begin ).count() < 2000);
 	EXPECT_TRUE(duration_cast<milliseconds>( end - begin ).count() > 1000);
 }
 

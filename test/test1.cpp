@@ -37,14 +37,17 @@ TEST(functional1, emplty_verify) {
 
 TEST(functional1, load) {
 	using namespace std::chrono;
-	high_resolution_clock::time_point begin = high_resolution_clock::now();
-	additive_accumulator_1 a;
-	for (size_t iter = 0; iter < 10000; ++iter) {
-		a.add(std::to_string(iter));
-		a.create_witness(iter + 1);
+	for (auto limit : {1000, 10000, 100000}) {
+		high_resolution_clock::time_point begin = high_resolution_clock::now();
+		additive_accumulator_1 a;
+		for (size_t iter = 0; iter < limit; ++iter) {
+			a.add(std::to_string(iter));
+			a.create_witness(iter + 1);
+		}
+		high_resolution_clock::time_point end = high_resolution_clock::now();
+		double dur = duration_cast<milliseconds>( end - begin ).count(); 
+		std::cerr << "Executed " << limit << " in " << dur << " milliseconds" << std::endl;
 	}
-	high_resolution_clock::time_point end = high_resolution_clock::now();
-	EXPECT_TRUE(duration_cast<milliseconds>( end - begin ).count() < 500);
 }
 
 TEST(functional1, sequential_verify) {
